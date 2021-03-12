@@ -2,7 +2,7 @@ import * as cookie from 'cookie';
 
 export const state = () => ({
   modals: {
-    order: {
+    addOrder: {
       visible: false,
       data: {},
     },

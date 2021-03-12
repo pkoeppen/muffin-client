@@ -3,7 +3,7 @@ export default {
     STRIPE_API_KEY: 'pk_test_6sCcqrw2FLodj7pYVC2zH3ai',
   },
   head: {
-    title: 'Maus',
+    title: 'Muffin Quest - Gourmet Muffin Delivery',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -20,7 +20,7 @@ export default {
   ],
   loading: {
     color: '#10b981',
-    height: '4px',
+    height: '3px',
   },
   components: true,
   buildModules: [
@@ -29,16 +29,9 @@ export default {
     '@nuxtjs/tailwindcss',
   ],
 
-  modules: ['@nuxtjs/axios', '@nuxtjs/pwa', '@nuxtjs/recaptcha'],
-  recaptcha: {
-    hideBadge: false,
-    siteKey:
-      '6LcD-tcUAAAAAGDzZoPmqTrPkXLQgixHGIWhc5v1' ||
-      process.env.RECAPTCHA_PUBLIC_KEY, // todo
-    version: 3,
-  },
+  modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   axios: {
-    baseURL: 'http://localhost:3001',
+    baseURL: 'http://localhost:3002',
     credentials: true,
     init(axios) {
       axios.defaults.withCredentials = true;

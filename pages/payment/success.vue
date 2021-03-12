@@ -11,7 +11,7 @@
         <h1 class="font-display text-6xl -mt-4">Order Placed</h1>
       </section>
 
-      <hr class="border-2 mt-12 mb-10" />
+      <div class="border-b-4 mt-12 mb-10" />
 
       <!-- Place Order -->
       <section id="order" class="flex flex-col gap-5 mb-10">
@@ -19,8 +19,9 @@
           <i class="fas fa-cookie-bite mr-2" />Your order has been placed!
         </h2>
         <p class="leading-loose text-center mb-5">
-          Your Chocolate Chip Muffins are on their way into the oven, then to
-          {{ address }}, then into {{ name }}. Try not to get too excited.
+          Thanks{{ name }}! Your Chocolate Chip Muffins are on their way into
+          the oven, then to {{ address }}, then into your mouth. Try not to get
+          too excited.
         </p>
         <div class="text-center">
           <nuxt-link
@@ -49,9 +50,12 @@ export default {
         animationData: muffinAnimation.default,
         loop: false,
       },
-      name: `${data.name}'s mouth` || 'your mouth',
+      name: `, ${data.name}`,
       address: data.address || 'your house',
     };
+  },
+  head: {
+    title: 'Order Confirmation',
   },
 };
 </script>

@@ -45,9 +45,23 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  listOrders(context, params) {
+    return this.$axios
+      .get(`/orders?${querystring.stringify(params)}`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
+
   listRecentOrders(context) {
     return this.$axios
       .get(`/orders`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
+
+  updateOrder(context, { id, ...updates }) {
+    return this.$axios
+      .post(`/orders/${id}`, updates)
       .then(({ data }) => data)
       .catch(this.$catch);
   },

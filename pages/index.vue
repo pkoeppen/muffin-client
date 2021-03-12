@@ -1,13 +1,31 @@
 <template>
   <div>
+    <div
+      class="h-12 bg-gray-800 text-white flex items-center justify-center w-full text-sm"
+    >
+      <span
+        >Now delivering within
+        <a
+          href="https://www.google.com/maps/place/Fort+Wayne,+IN"
+          target="_blank"
+          ><i class="fas fa-map-marker-alt mr-1" /><span
+            class="font-bold underline"
+            >Fort Wayne</span
+          ></a
+        >
+        city limits!</span
+      >
+    </div>
     <main class="max-w-2xl p-3 mx-auto flex flex-col">
       <!-- Brand -->
       <section id="brand" class="text-center -mt-4">
         <lottie :options="animationOptions" :height="220" />
-        <h1 class="font-display text-6xl -mt-8">Muffin Quest</h1>
+        <h1 class="font-display text-6xl -mt-8 whitespace-nowrap">
+          Muffin Quest
+        </h1>
       </section>
 
-      <hr class="border-2 mt-16 mb-10" />
+      <div class="border-b-4 mt-16 mb-10" />
 
       <!-- Place Order -->
       <section id="order" class="flex flex-col gap-5">
@@ -70,29 +88,27 @@
         </div>
       </section>
 
-      <hr class="border-2 mt-12 mb-10" />
+      <div class="border-b-4 mt-12 mb-10" />
 
       <!-- Recent Orders -->
-      <section id="recent" class="flex flex-col gap-5">
+      <section id="recent" class="flex flex-col items-center gap-5">
         <h2 class="font-bold text-lg text-center">Recent Orders</h2>
-        <table v-if="orders.length" class="w-full table-auto">
+        <table v-if="orders.length" class="table-auto w-full">
           <thead>
             <tr
-              class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+              class="bg-gray-200 text-gray-600 uppercase text-xs sm:text-sm leading-normal"
             >
-              <th class="py-3 px-6 text-left">Item</th>
-              <th class="py-3 px-6 text-left">Placed</th>
-              <th class="py-3 px-6 text-left">Location</th>
-              <th class="py-3 px-6 text-right">Total</th>
+              <th class="py-3 px-3 sm:px-6 text-left">Item</th>
+              <th class="py-3 px-3 sm:px-6 text-left">Placed</th>
+              <th class="py-3 px-3 sm:px-6 text-left hidden sm:table-cell">
+                Location
+              </th>
+              <th class="py-3 px-3 sm:px-6 text-right">Total</th>
             </tr>
           </thead>
-          <tbody class="text-gray-600 text-sm font-light">
-            <tr
-              v-for="(order, n) of orders"
-              :key="n"
-              class="border-b border-gray-200 hover:bg-gray-100"
-            >
-              <td class="py-3 px-6 whitespace-nowrap">
+          <tbody class="text-gray-600 text-xs sm:text-sm font-light divide-y">
+            <tr v-for="(order, n) of orders" :key="n" class="border-gray-200">
+              <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
                 <div class="flex items-center">
                   <div class="mr-2">
                     <svg
@@ -168,14 +184,21 @@
                       </g>
                     </svg>
                   </div>
-                  <span>{{ order.item }}</span>
+                  <span>{{ truncateName(order.item) }}</span>
                 </div>
               </td>
-              <td class="py-3 px-6">
-                {{ formatDate(order.created) }}
+              <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <span class="hidden sm:inline">{{
+                  formatDate(order.created)
+                }}</span>
+                <span class="inline">{{ formatTime(order.created) }}</span>
               </td>
-              <td class="py-3 px-6">Fort Wayne</td>
-              <td class="py-3 px-6 font-bold text-green-500 text-right">
+              <td
+                class="py-3 px-3 sm:px-6 sm:whitespace-nowrap hidden sm:table-cell"
+              >
+                Fort Wayne
+              </td>
+              <td class="py-3 px-3 sm:px-6 font-bold text-green-500 text-right">
                 {{ order.total }}
               </td>
             </tr>
@@ -186,10 +209,10 @@
         </div>
       </section>
 
-      <hr class="border-2 mt-12 mb-10" />
+      <div class="border-b-4 mt-12 mb-10" />
 
       <!-- About -->
-      <section id="about" class="flex flex-col gap-5 mb-10">
+      <section id="about" class="flex flex-col gap-5 mb-8">
         <h2 class="text-center">
           <span class="font-bold text-lg">About&nbsp;</span
           ><span class="font-display text-2xl">Muffin Quest</span>
@@ -201,22 +224,39 @@
             target="_blank"
             >Muffin Quest</a
           >
-          began as one man's dream to bequeath to his home town the tastiest of
-          muffins. Said man has a motorcycle, too. Muffins delivered by
-          motorcycle are made even more delicious by the fresh air and freedom
-          that wash over them en route to their destination. Don't take our word
-          for it:
-          <span class="text-blue-600 underline cursor-pointer"
+          &ndash; formerly known as MotoMuffins &ndash; began as one man's dream
+          to bequeath to his home town the tastiest of muffins. Said man has a
+          motorcycle, too. (Said man is me.) Muffins delivered by motorcycle are
+          made even more delicious by the fresh air and freedom that wash over
+          them en route to their destination. Don't take my word for it:
+          <span
+            class="text-blue-600 underline cursor-pointer"
+            @click="
+              selected = 2;
+              redirectToStripe();
+            "
             >Try them for yourself.</span
           >
         </p>
+        <p class="leading-loose">
+          Questions? Concerns? Reach out to me at
+          <a
+            href="mailto:peter@muffin.quest"
+            class="text-blue-600 underline"
+            target="_blank"
+            >peter@muffin.quest</a
+          >
+          for incredibly subpar customer service. Don't forget to tip!
+        </p>
+      </section>
+      <section class="text-center text-xs text-gray-400 mb-8">
+        &copy;{{ new Date().getFullYear() }} Peter Koeppen
       </section>
     </main>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
 import * as dateFormat from 'dateformat';
 import Lottie from '~/node_modules/vue-lottie/src/lottie.vue';
 import * as motorcycleAnimation from '~/assets/lottie/motorcycle.json';
@@ -226,7 +266,7 @@ export default {
     Lottie,
   },
   async asyncData({ store }) {
-    const orders = await store.dispatch('api/listRecentOrders');
+    const { orders } = await store.dispatch('api/listRecentOrders');
     return {
       loading: false,
       orders: orders || [],
@@ -237,13 +277,17 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(['showModal']),
-    formatDate(date) {
-      return dateFormat(new Date(date), 'mmmm d, h:MM TT');
+    formatDate(timestamp) {
+      return dateFormat(timestamp, 'mmm d, ');
     },
-    showOrderModal() {
-      if (!this.selected) return;
-      this.showModal({ modal: 'order', data: { item: this.selected } });
+    formatTime(timestamp) {
+      return dateFormat(timestamp, 'h:MM TT');
+    },
+    truncateName(item) {
+      return item
+        .replace(/muffins\s/i, '')
+        .split(' + ')
+        .shift();
     },
     async redirectToStripe() {
       this.loading = true;

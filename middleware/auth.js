@@ -1,6 +1,6 @@
 export default function ({ store, redirect, route }) {
   const admin = store.state.api.admin;
-  const redirectPath = `/login?to=${route.path}`;
+  const redirectPath = `/login`;
   if (!admin) {
     redirect(redirectPath);
   } else if (admin.expires < Date.now()) {
