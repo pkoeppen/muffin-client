@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed inset-0 flex justify-center items-center">
+  <div
+    class="fixed inset-0 flex flex-col justify-center items-center space-y-5"
+  >
+    <div class="font-display text-2xl">Muffin Quest</div>
     <form
       class="p-5 border rounded flex flex-col space-y-3"
       @submit.prevent="login()"
@@ -32,7 +35,7 @@ export default {
   data() {
     return {
       form: {
-        username: 'peter',
+        username: '',
         password: '',
       },
     };

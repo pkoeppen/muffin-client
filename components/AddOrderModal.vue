@@ -216,7 +216,7 @@
           </div>
 
           <!-- Paid -->
-          <div class="mb-4 flex items-center gap-3">
+          <div class="mb-4 flex items-center space-x-3">
             <div class="font-bold mb-1">
               <label for="paid">Paid</label>
             </div>
@@ -238,7 +238,7 @@
           </div>
 
           <!-- Delivered -->
-          <div class="mb-4 flex items-center gap-3">
+          <div class="mb-4 flex items-center space-x-3">
             <div class="font-bold mb-1">
               <label for="delivered">Delivered</label>
             </div>

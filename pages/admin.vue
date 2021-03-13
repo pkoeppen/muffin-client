@@ -1,7 +1,7 @@
 <template>
   <main class="flex justify-center items-center p-3">
     <!-- Recent Orders -->
-    <section id="recent" class="flex flex-col items-center gap-5">
+    <section id="recent" class="flex flex-col items-center space-y-5">
       <h2 class="font-bold text-lg text-center">Orders ({{ count }})</h2>
       <div>
         <button

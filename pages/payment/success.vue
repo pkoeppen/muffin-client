@@ -10,7 +10,7 @@
       <div class="border-b-4 mt-12 mb-10" />
 
       <!-- Place Order -->
-      <section id="order" class="flex flex-col gap-5 mb-10">
+      <section id="order" class="flex flex-col space-y-5 mb-10">
         <h2 class="font-bold text-lg text-center">
           <i class="fas fa-cookie-bite mr-2" />Your order has been placed!
         </h2>

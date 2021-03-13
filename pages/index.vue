@@ -28,48 +28,54 @@
       <div class="border-b-4 mt-16 mb-10" />
 
       <!-- Place Order -->
-      <section id="order" class="flex flex-col gap-5">
+      <section id="order" class="flex flex-col space-y-5">
         <h2 class="font-bold text-lg text-center">
           <i class="fas fa-cookie-bite mr-2" />Select Your Muffins
         </h2>
-        <div class="flex flex-wrap justify-center gap-3">
-          <button
-            class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded"
-            :class="{
-              'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
-                selected === 1,
-            }"
-            @click="selected = 1"
-          >
-            Chocolate Chip
-          </button>
-          <button
-            class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded relative"
-            :class="{
-              'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
-                selected === 2,
-            }"
-            @click="selected = 2"
-          >
-            <i
-              title="Most Popular"
-              class="fas fa-certificate absolute -top-2 -right-3 w-6"
+        <div class="flex flex-wrap justify-center">
+          <div class="m-1.5">
+            <button
+              class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded"
               :class="{
-                'text-yellow-400': selected === 2,
+                'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
+                  selected === 1,
               }"
-            />
-            Chocolate Chip (Keto)
-          </button>
-          <button
-            class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded"
-            :class="{
-              'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
-                selected === 3,
-            }"
-            @click="selected = 3"
-          >
-            Chocolate Chip (Gluten-Free)
-          </button>
+              @click="selected = 1"
+            >
+              Chocolate Chip
+            </button>
+          </div>
+          <div class="m-1.5">
+            <button
+              class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded relative"
+              :class="{
+                'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
+                  selected === 2,
+              }"
+              @click="selected = 2"
+            >
+              <i
+                title="Most Popular"
+                class="fas fa-certificate absolute -top-2 -right-3 w-6"
+                :class="{
+                  'text-yellow-400': selected === 2,
+                }"
+              />
+              Chocolate Chip (Keto)
+            </button>
+          </div>
+          <div class="m-1.5">
+            <button
+              class="p-3 border-2 border-gray-600 bg-gray-100 text-gray-600 hover:border-blue-400 hover:bg-blue-100 hover:text-blue-500 font-bold rounded"
+              :class="{
+                'border-blue-500 hover:border-blue-500 bg-blue-100 text-blue-500':
+                  selected === 3,
+              }"
+              @click="selected = 3"
+            >
+              Chocolate Chip (Gluten-Free)
+            </button>
+          </div>
         </div>
         <div class="text-center">
           <button
@@ -91,7 +97,7 @@
       <div class="border-b-4 mt-12 mb-10" />
 
       <!-- Recent Orders -->
-      <section id="recent" class="flex flex-col items-center gap-5">
+      <section id="recent" class="flex flex-col items-center space-y-5">
         <h2 class="font-bold text-lg text-center">Recent Orders</h2>
         <table v-if="orders.length" class="table-auto w-full">
           <thead>
@@ -212,7 +218,7 @@
       <div class="border-b-4 mt-12 mb-10" />
 
       <!-- About -->
-      <section id="about" class="flex flex-col gap-5 mb-8">
+      <section id="about" class="flex flex-col space-y-5 mb-8">
         <h2 class="text-center">
           <span class="font-bold text-lg">About&nbsp;</span
           ><span class="font-display text-2xl">Muffin Quest</span>
