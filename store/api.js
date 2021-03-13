@@ -65,6 +65,20 @@ export const actions = {
       .then(({ data }) => data)
       .catch(this.$catch);
   },
+
+  addOrder(context, params) {
+    return this.$axios
+      .put(`/orders/custom`, params)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
+
+  deleteOrder(context, { id }) {
+    return this.$axios
+      .delete(`/orders/${id}`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
 };
 
 export const mutations = {

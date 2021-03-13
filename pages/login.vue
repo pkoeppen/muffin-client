@@ -47,5 +47,8 @@ export default {
       if (success) this.$router.push('/admin');
     },
   },
+  head: {
+    title: 'Login',
+  },
 };
 </script>

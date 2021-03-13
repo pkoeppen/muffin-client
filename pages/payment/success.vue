@@ -3,11 +3,7 @@
     <main class="max-w-2xl p-3 mx-auto flex flex-col">
       <!-- Brand -->
       <section id="brand" class="text-center">
-        <lottie
-          :options="animationOptions"
-          :height="220"
-          @animCreated="handleAnimation"
-        />
+        <lottie :options="animationOptions" :height="220" />
         <h1 class="font-display text-6xl -mt-4">Order Placed</h1>
       </section>
 

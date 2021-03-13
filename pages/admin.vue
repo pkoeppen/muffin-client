@@ -24,6 +24,7 @@
             <th class="py-3 px-3 sm:px-6 text-left">Total</th>
             <th class="py-3 px-3 sm:px-6 text-left">Paid</th>
             <th class="py-3 px-3 sm:px-6 text-right">Delivered</th>
+            <th></th>
           </tr>
         </thead>
         <tbody class="text-gray-600 text-xs font-light divide-y">
@@ -127,7 +128,7 @@
             <td class="py-3 px-3 sm:px-6 font-bold text-green-500 text-center">
               {{ order.total }}
             </td>
-            <td class="py-3 px-3 sm:px-6 text-center">
+            <td class="py-3 px-3 sm:px-6 text-center text-sm">
               <i
                 :class="
                   order.paid
@@ -139,7 +140,7 @@
                 @click="updateOrder({ id: order._id, paid: !order.paid })"
               />
             </td>
-            <td class="py-3 px-3 sm:px-6 text-center">
+            <td class="py-3 px-3 sm:px-6 text-center text-sm">
               <i
                 :class="
                   order.delivered
@@ -151,6 +152,13 @@
                 @click="
                   updateOrder({ id: order._id, delivered: !order.delivered })
                 "
+              />
+            </td>
+            <td class="py-3 px-3 sm:px-6 text-center text-sm">
+              <i
+                class="fas fa-trash-alt cursor-pointer text-gray-500 hover:text-red-500"
+                title="Delete Order"
+                @click="deleteOrder({ id: order._id })"
               />
             </td>
           </tr>
@@ -166,13 +174,17 @@ import { mapMutations } from 'vuex';
 import * as dateFormat from 'dateformat';
 export default {
   middleware: ['auth'],
-  async asyncData({ store }) {
-    const { orders, count } = await store.dispatch('api/listOrders', {
+  async fetch() {
+    const { orders, count } = await this.$store.dispatch('api/listOrders', {
       limit: 500,
     });
+    this.orders = orders;
+    this.count = count;
+  },
+  data() {
     return {
-      orders: orders || [],
-      count,
+      orders: [],
+      count: 0,
     };
   },
   methods: {
@@ -185,6 +197,11 @@ export default {
       await this.$store.dispatch('api/updateOrder', { id, ...updates });
       for (const key in updates) {
         order[key] = updates[key];
+      }
+    },
+    async deleteOrder({ id }) {
+      if (confirm('Are you sure you want to delete this order?')) {
+        await this.$store.dispatch('api/deleteOrder', { id });
       }
     },
   },

@@ -1,6 +1,9 @@
 export default {
   env: {
-    STRIPE_API_KEY: 'pk_test_6sCcqrw2FLodj7pYVC2zH3ai',
+    STRIPE_API_KEY:
+      process.env.NODE_ENV === 'production'
+        ? 'pk_live_y0PzykXKvY30Xx7fTPh4dpbH'
+        : 'pk_test_6sCcqrw2FLodj7pYVC2zH3ai',
   },
   head: {
     title: 'Muffin Quest - Gourmet Muffin Delivery',

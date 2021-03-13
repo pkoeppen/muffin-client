@@ -80,7 +80,7 @@
             }"
             @click="redirectToStripe()"
           >
-            <i v-if="loading" class="fas fa-circle-notch animate-spin" /><span
+            <i v-if="loading" class="fas fa-asterisk animate-spin" /><span
               v-else
               >Place Order</span
             >
