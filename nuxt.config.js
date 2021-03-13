@@ -11,6 +11,16 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'apple-mobile-web-app-title',
+        property: 'apple-mobile-web-app-title',
+        content: 'Muffin Quest',
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: 'Muffin Quest',
+      },
       { hid: 'og:title', property: 'og:title', content: 'Muffin Quest' },
       {
         hid: 'og:description',
