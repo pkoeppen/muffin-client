@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="h-12 bg-gray-800 text-white flex items-center justify-center w-full text-sm"
+      class="h-12 bg-gray-800 text-white flex items-center justify-center w-full text-xs sm:text-base"
     >
       <span
         >Now delivering within
@@ -20,7 +20,7 @@
       <!-- Brand -->
       <section id="brand" class="text-center -mt-4">
         <lottie :options="animationOptions" :height="220" />
-        <h1 class="font-display text-6xl -mt-8 whitespace-nowrap">
+        <h1 class="font-display text-5xl sm:text-6xl -mt-8 whitespace-nowrap">
           Muffin Quest
         </h1>
       </section>
@@ -217,7 +217,9 @@
           <span class="font-bold text-lg">About&nbsp;</span
           ><span class="font-display text-2xl">Muffin Quest</span>
         </h2>
-        <p class="leading-loose">
+        <p
+          class="text-center sm:text-left leading-relaxed text-sm sm:text-base sm:leading-loose"
+        >
           <a
             href="https://instagram.com/muffin.quest"
             class="text-blue-600 underline"
@@ -238,7 +240,9 @@
             >Try them for yourself.</span
           >
         </p>
-        <p class="leading-loose">
+        <p
+          class="text-center sm:text-left leading-relaxed text-sm sm:text-base sm:leading-loose"
+        >
           Questions? Concerns? Reach out to me at
           <a
             href="mailto:peter@muffin.quest"
