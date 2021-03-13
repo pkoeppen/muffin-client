@@ -31,7 +31,10 @@ export default {
 
   modules: ['@nuxtjs/axios', '@nuxtjs/pwa'],
   axios: {
-    baseURL: 'http://localhost:3002',
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://api.muffin.quest'
+        : 'http://localhost:3002',
     credentials: true,
     init(axios) {
       axios.defaults.withCredentials = true;
