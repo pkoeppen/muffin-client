@@ -27,7 +27,7 @@
 
       <div class="border-b-4 mt-16 mb-10" />
 
-      <!-- Place Order -->
+      <!-- View Details -->
       <section id="order" class="flex flex-col space-y-5">
         <h2 class="font-bold text-lg text-center">
           <i class="fas fa-cookie-bite mr-2" />Select Your Muffins
@@ -88,7 +88,7 @@
           >
             <i v-if="loading" class="fas fa-asterisk animate-spin" /><span
               v-else
-              >Place Order</span
+              >View Details</span
             >
           </button>
         </div>
