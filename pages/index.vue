@@ -276,10 +276,10 @@ export default {
     Lottie,
   },
   async asyncData({ store }) {
-    const { orders } = await store.dispatch('api/listRecentOrders');
+    const orders = await store.dispatch('api/listRecentOrders');
     return {
       loading: false,
-      orders: orders || [],
+      orders: orders.data || [],
       animationOptions: {
         animationData: motorcycleAnimation.default,
       },

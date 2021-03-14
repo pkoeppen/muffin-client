@@ -10,16 +10,16 @@
         Logout<i class="fas fa-sign-out-alt ml-1" />
       </button>
     </nav>
-    <main class="flex justify-center items-center px-3">
-      <!-- Recent Orders -->
-      <section id="recent" class="flex flex-col items-center">
+    <main class="flex flex-col items-center px-3 xl:px-5">
+      <!-- Orders -->
+      <section id="orders" class="w-full flex flex-col items-center">
         <div
           class="w-full flex flex-wrap items-center xl:justify-between my-6 xl:my-3"
         >
           <h2
             class="w-full xl:w-1/2 font-bold text-lg text-center mb-2 xl:mb-0 xl:text-left"
           >
-            Orders ({{ count }})
+            Orders ({{ orderCount }})
           </h2>
           <div class="w-full xl:w-1/2 text-center xl:text-right">
             <button
@@ -48,7 +48,11 @@
               </tr>
             </thead>
             <tbody class="text-gray-600 text-xs font-light divide-y">
-              <tr v-for="(order, n) of orders" :key="n" class="border-gray-200">
+              <tr
+                v-for="order of orders"
+                :key="order._id"
+                class="border-gray-200"
+              >
                 <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="mr-2">
@@ -326,7 +330,125 @@
             </div>
           </div>
         </template>
-        <div v-else class="text-gray-500 text-center">No orders yet.</div>
+        <div v-else class="text-gray-500 text-center mb-3">No orders yet.</div>
+      </section>
+
+      <!-- Messages -->
+      <section id="messages" class="w-full flex flex-col items-center">
+        <div
+          class="w-full flex flex-wrap items-center xl:justify-between my-6 xl:my-3"
+        >
+          <h2
+            class="w-full xl:w-1/2 font-bold text-lg text-center mb-2 xl:mb-0 xl:text-left"
+          >
+            Messages ({{ messageCount }})
+          </h2>
+        </div>
+        <template v-if="messages.length">
+          <table class="table-auto w-full hidden xl:table">
+            <thead>
+              <tr
+                class="bg-gray-200 text-gray-600 uppercase text-xs leading-normal"
+              >
+                <th class="py-3 px-3 sm:px-6 text-left">From</th>
+                <th class="py-3 px-3 sm:px-6 text-left">Sent</th>
+                <th class="py-3 px-3 sm:px-6 text-left">Body</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="text-gray-600 text-xs font-light divide-y">
+              <tr
+                v-for="message of messages"
+                :key="message._id"
+                class="border-gray-200"
+              >
+                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                  {{ message.from }}
+                </td>
+                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                  {{ formatDate(message.created) }}
+                </td>
+                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                  {{ message.body || '(none)' }}
+                </td>
+                <td class="py-3 px-3 sm:px-6 text-center text-sm">
+                  <i
+                    class="fas fa-trash-alt cursor-pointer text-gray-500 hover:text-red-500"
+                    title="Delete Message"
+                    @click="deleteMessage({ id: message._id })"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="flex flex-wrap xl:hidden -m-3 text-center">
+            <div
+              v-for="(message, n) of messages"
+              :key="n"
+              class="p-3 w-full md:w-1/2"
+            >
+              <div class="shadow-md">
+                <div
+                  class="w-full bg-gray-700 text-white p-3 rounded-t font-bold text-base sm:text-lg"
+                >
+                  Message
+                </div>
+                <div
+                  class="p-5 border flex flex-col items-center space-y-5 rounded-b"
+                >
+                  <div>
+                    <div
+                      class="text-xs sm:text-sm font-bold uppercase text-gray-500"
+                    >
+                      From
+                    </div>
+                    <div class="text-sm">
+                      {{ message.from }}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      class="text-xs sm:text-sm font-bold uppercase text-gray-500"
+                    >
+                      Sent
+                    </div>
+                    <div class="text-sm">
+                      {{ formatDate(message.created) }}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      class="text-xs sm:text-sm font-bold uppercase text-gray-500"
+                    >
+                      Body
+                    </div>
+                    <div class="text-sm">
+                      {{ message.body }}
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      class="text-xs sm:text-sm font-bold uppercase text-gray-500"
+                    >
+                      Delete
+                    </div>
+                    <i
+                      class="fas fa-trash-alt cursor-pointer text-gray-500 hover:text-red-500 text-base sm:text-xl"
+                      title="Delete Message"
+                      @click="deleteMessage({ id: message._id })"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </template>
+        <div v-else class="text-gray-500 text-center mb-3">
+          No messages yet.
+        </div>
       </section>
     </main>
   </div>
@@ -338,16 +460,23 @@ import * as dateFormat from 'dateformat';
 export default {
   middleware: ['auth'],
   async fetch() {
-    const { orders, count } = await this.$store.dispatch('api/listOrders', {
+    const orders = await this.$store.dispatch('api/listOrders', {
       limit: 500,
     });
-    this.orders = orders;
-    this.count = count;
+    this.orders = orders.data;
+    this.orderCount = orders.count;
+    const messages = await this.$store.dispatch('api/listMessages', {
+      limit: 500,
+    });
+    this.messages = messages.data;
+    this.messageCount = messages.count;
   },
   data() {
     return {
       orders: [],
-      count: 0,
+      orderCount: 0,
+      messages: [],
+      messageCount: 0,
     };
   },
   methods: {
@@ -365,6 +494,19 @@ export default {
     async deleteOrder({ id }) {
       if (confirm('Are you sure you want to delete this order?')) {
         await this.$store.dispatch('api/deleteOrder', { id });
+        this.orders.splice(
+          this.orders.findIndex((order) => order._id === id),
+          1
+        );
+      }
+    },
+    async deleteMessage({ id }) {
+      if (confirm('Are you sure you want to delete this message?')) {
+        await this.$store.dispatch('api/deleteMessage', { id });
+        this.messages.splice(
+          this.messages.findIndex((message) => message._id === id),
+          1
+        );
       }
     },
     async logOut() {

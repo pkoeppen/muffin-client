@@ -103,6 +103,26 @@ export const actions = {
       .then(({ data }) => data)
       .catch(this.$catch);
   },
+
+  /*
+   * List all messages (admin).
+   */
+  listMessages(context, params) {
+    return this.$axios
+      .get(`/sms?${querystring.stringify(params)}`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
+
+  /*
+   * Delete a message.
+   */
+  deleteMessage(context, { id }) {
+    return this.$axios
+      .delete(`/sms/${id}`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
 };
 
 export const mutations = {
