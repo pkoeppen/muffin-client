@@ -363,7 +363,11 @@
                 class="border-gray-200"
               >
                 <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
-                  {{ message.from }}
+                  <a
+                    :href="`tel:${message.from}`"
+                    class="underline text-blue-600"
+                    >{{ message.from }}</a
+                  >
                 </td>
                 <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
                   {{ formatDate(message.created) }}
