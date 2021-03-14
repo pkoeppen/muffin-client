@@ -202,7 +202,7 @@
               <td
                 class="py-3 px-3 sm:px-6 sm:whitespace-nowrap hidden sm:table-cell"
               >
-                Fort Wayne
+                {{ order.location }}
               </td>
               <td class="py-3 px-3 sm:px-6 font-bold text-green-500 text-right">
                 {{ order.total }}
