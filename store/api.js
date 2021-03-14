@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const actions = {
   /*
-   * Admin Routes
+   * Log in.
    */
   logIn(context, params) {
     context.commit('setAuthenticating', true);
@@ -21,6 +21,9 @@ export const actions = {
       .finally(() => context.commit('setAuthenticating', false));
   },
 
+  /*
+   * Log out.
+   */
   logOut(context) {
     return this.$axios
       .post(`/admin/logout`)
@@ -31,6 +34,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * Fetch a Stripe Checkout session.
+   */
   createCheckoutSession(context, params) {
     return this.$axios
       .post(`/payment/checkout?${querystring.stringify(params)}`)
@@ -38,6 +44,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * Get successful payment details.
+   */
   getPaymentSuccessDetails(context, params) {
     return this.$axios
       .get(`/payment/success?${querystring.stringify(params)}`)
@@ -45,6 +54,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * List all orders (admin).
+   */
   listOrders(context, params) {
     return this.$axios
       .get(`/orders?${querystring.stringify(params)}`)
@@ -52,6 +64,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * List recent orders.
+   */
   listRecentOrders(context) {
     return this.$axios
       .get(`/orders`)
@@ -59,6 +74,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * Update an order.
+   */
   updateOrder(context, { id, ...updates }) {
     return this.$axios
       .post(`/orders/${id}`, updates)
@@ -66,6 +84,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * Add a custom order.
+   */
   addOrder(context, params) {
     return this.$axios
       .put(`/orders/custom`, params)
@@ -73,6 +94,9 @@ export const actions = {
       .catch(this.$catch);
   },
 
+  /*
+   * Delete an order.
+   */
   deleteOrder(context, { id }) {
     return this.$axios
       .delete(`/orders/${id}`)

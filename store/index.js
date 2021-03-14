@@ -36,7 +36,9 @@ export const actions = {
         context.commit('api/setAdmin', { token, expires, data });
       } catch (error) {
         context.commit('api/setAdmin', null);
-        if (req.url.startsWith('/admin')) redirect('/admin/login');
+        if (req.url.startsWith('/admin')) {
+          redirect('/login');
+        }
       }
     } else {
       // No cookies.
