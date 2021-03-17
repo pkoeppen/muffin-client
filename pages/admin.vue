@@ -10,14 +10,14 @@
         Logout<i class="fas fa-sign-out-alt ml-1" />
       </button>
     </nav>
-    <main class="flex flex-col items-center px-3 xl:px-5">
+    <main class="px-3 xl:px-5 xl:space-y-5">
       <!-- Orders -->
       <section id="orders" class="w-full flex flex-col items-center">
         <div
           class="w-full flex flex-wrap items-center xl:justify-between my-6 xl:my-3"
         >
           <h2
-            class="w-full xl:w-1/2 font-bold text-lg text-center mb-2 xl:mb-0 xl:text-left"
+            class="w-full xl:w-1/2 font-bold text-lg text-center xl:text-left mb-3 xl:mb-0"
           >
             Orders ({{ orderCount }})
           </h2>
@@ -31,7 +31,7 @@
           </div>
         </div>
         <template v-if="orders.length">
-          <table class="table-auto w-full hidden xl:table">
+          <table class="table-auto w-full hidden xl:table px-3">
             <thead>
               <tr
                 class="bg-gray-200 text-gray-600 uppercase text-xs leading-normal"
@@ -41,6 +41,7 @@
                 <th class="py-3 px-3 sm:px-6 text-left">Name</th>
                 <th class="py-3 px-3 sm:px-6 text-left">Address</th>
                 <th class="py-3 px-3 sm:px-6 text-left">Email</th>
+                <th class="py-3 px-3 sm:px-6 text-left">Phone</th>
                 <th class="py-3 px-3 sm:px-6 text-left">Total</th>
                 <th class="py-3 px-3 sm:px-6 text-left">Paid</th>
                 <th class="py-3 px-3 sm:px-6 text-right">Delivered</th>
@@ -53,7 +54,7 @@
                 :key="order._id"
                 class="border-gray-200"
               >
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   <div class="flex items-center">
                     <div class="mr-2">
                       <svg
@@ -132,24 +133,47 @@
                     <span>{{ order.item }}</span>
                   </div>
                 </td>
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   {{ formatDate(order.created) }}
                 </td>
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   {{ order.name || '(none)' }}
                 </td>
                 <td class="py-3 px-3 sm:px-6">
-                  <div>{{ order.address.line1 }}</div>
-                  <div v-if="order.address.line2">
-                    {{ order.address.line2 }}
-                  </div>
-                  <div>
-                    {{ order.address.city }}, {{ order.address.state }}
-                    {{ order.address.postal_code }}
-                  </div>
+                  <a
+                    class="text-blue-500 underline outline-none"
+                    :href="`http://maps.google.com/?q=${order.address.line1}, ${order.address.city}, ${order.address.state}, ${order.address.postal_code}`"
+                    target="_blank"
+                  >
+                    <div class="whitespace-nowrap">
+                      {{ order.address.line1 }}
+                    </div>
+                    <div v-if="order.address.line2" class="whitespace-nowrap">
+                      {{ order.address.line2 }}
+                    </div>
+                    <div>
+                      {{ order.address.city }}, {{ order.address.state }}
+                      {{ order.address.postal_code }}
+                    </div>
+                  </a>
                 </td>
                 <td class="py-3 px-3 sm:px-6">
-                  {{ order.email || '(none)' }}
+                  <a
+                    v-if="order.email"
+                    :href="`mailto:${order.email}`"
+                    class="text-blue-500 underline outline-none"
+                    >{{ order.email }}</a
+                  >
+                  <span v-else>(none)</span>
+                </td>
+                <td class="py-3 px-3 sm:px-6">
+                  <a
+                    v-if="order.phone"
+                    :href="`tel:${order.phone}`"
+                    class="text-blue-500 underline outline-none"
+                    >{{ order.phone }}</a
+                  >
+                  <span v-else>(none)</span>
                 </td>
                 <td
                   class="py-3 px-3 sm:px-6 font-bold text-green-500 text-center"
@@ -267,7 +291,30 @@
                       Email
                     </div>
                     <div class="text-sm">
-                      {{ order.email || '(none)' }}
+                      <a
+                        v-if="order.email"
+                        :href="`mailto:${order.email}`"
+                        class="text-blue-500 underline outline-none"
+                        >{{ order.email }}</a
+                      >
+                      <span v-else>(none)</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div
+                      class="text-xs sm:text-sm font-bold uppercase text-gray-500"
+                    >
+                      Phone
+                    </div>
+                    <div class="text-sm">
+                      <a
+                        v-if="order.phone"
+                        :href="`tel:${order.phone}`"
+                        class="text-blue-500 underline outline-none"
+                        >{{ order.phone }}</a
+                      >
+                      <span v-else>(none)</span>
                     </div>
                   </div>
 
@@ -339,7 +386,7 @@
           class="w-full flex flex-wrap items-center xl:justify-between my-6 xl:my-3"
         >
           <h2
-            class="w-full xl:w-1/2 font-bold text-lg text-center mb-2 xl:mb-0 xl:text-left"
+            class="w-full xl:w-1/2 font-bold text-lg text-center xl:text-left"
           >
             Messages ({{ messageCount }})
           </h2>
@@ -362,17 +409,17 @@
                 :key="message._id"
                 class="border-gray-200"
               >
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   <a
                     :href="`tel:${message.from}`"
                     class="underline text-blue-600"
                     >{{ message.from }}</a
                   >
                 </td>
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   {{ formatDate(message.created) }}
                 </td>
-                <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+                <td class="py-3 px-3 sm:px-6">
                   {{ message.body || '(none)' }}
                 </td>
                 <td class="py-3 px-3 sm:px-6 text-center text-sm">

@@ -123,6 +123,16 @@ export const actions = {
       .then(({ data }) => data)
       .catch(this.$catch);
   },
+
+  /*
+   * Submit a phone number for text updates.
+   */
+  submitPhoneNumber(context, { orderId, phone }) {
+    return this.$axios
+      .put(`/orders/${orderId}?${querystring.stringify({ phone })}`)
+      .then(({ data }) => data)
+      .catch(this.$catch);
+  },
 };
 
 export const mutations = {

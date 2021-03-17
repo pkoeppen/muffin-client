@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="h-12 bg-gray-800 text-white flex items-center justify-center w-full text-xs sm:text-base"
+      class="px-3 py-2 h-12 bg-gray-800 text-white flex items-center justify-center w-full text-xs sm:text-base"
     >
       <span
         >Now delivering within
@@ -193,11 +193,11 @@
                   <span>{{ truncateName(order.item) }}</span>
                 </div>
               </td>
-              <td class="py-3 px-3 sm:px-6 sm:whitespace-nowrap">
+              <td class="py-3 px-3 sm:px-6 whitespace-nowrap">
+                <span class="inline">{{ formatDate(order.created) }}</span>
                 <span class="hidden sm:inline">{{
-                  formatDate(order.created)
+                  formatTime(order.created)
                 }}</span>
-                <span class="inline">{{ formatTime(order.created) }}</span>
               </td>
               <td
                 class="py-3 px-3 sm:px-6 sm:whitespace-nowrap hidden sm:table-cell"
@@ -288,10 +288,10 @@ export default {
   },
   methods: {
     formatDate(timestamp) {
-      return dateFormat(timestamp, 'mmm d, ');
+      return dateFormat(timestamp, 'mmm d');
     },
     formatTime(timestamp) {
-      return dateFormat(timestamp, 'h:MM TT');
+      return dateFormat(timestamp, ', h:MM TT');
     },
     truncateName(item) {
       return item

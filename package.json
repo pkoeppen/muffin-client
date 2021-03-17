@@ -25,6 +25,7 @@
     "dateformat": "^4.5.1",
     "lottie-web": "^5.7.6",
     "nuxt": "^2.15.2",
+    "phone": "^2.4.21",
     "simplebar-vue": "^1.6.0",
     "tailwindcss-aspect-ratio": "^3.0.0",
     "vue-lottie": "^0.2.1"
